@@ -1,5 +1,29 @@
 """
-Reactive Mode Composition Factor Analysis
+    
+                      ,
+               ,  ;:._.-`''.
+             ;.;'.;`       _ `.
+              ',;`         ( \ ,`-.  
+           `:.`,           (_/ ;\  `-.
+            ';:                / `.   `-._
+          `;.;'                `-,/ .     `-.
+          ';;'                _    `^`       `.
+         ';;             ,'- ' `--._          ;
+':      `;;        ,;      `.     ':`,,.__,,_ /
+ `;`:;`;:`       ,;  '.     ;,       ';';':';;`
+              .,; '    '-. _ `' :.;    
+            .:; `           '._  `';;,
+          ;:` `    :'`'        ', __.)
+        `;:;:.,...;'`' 
+      ';. '`'::'`''  .' `'
+    ,'   `';;:,..::;`'`' 
+, .;`      `'::''` 
+,`;`.
+
+
+                   REX 
+                  
+(Reactive Mode Composition Factor Analysis)
 
 A program to calculate the kinetic energy distribution at the reactive mode of transition states
 Written by: Mauricio Maldonado-Dominguez and Santiago Alonso-Gil
@@ -21,28 +45,6 @@ Program reshaping:
     - Make global variables local. (FIrst step toward a cleaner code).
     - Create an error list and call errors accordingly, instead of writing them explicitly in the main program.
     
-    
-                      ,
-               ,  ;:._.-`''.
-             ;.;'.;`      _ `.
-              ',;`       ( \ ,`-.  
-           `:.`,         (_/ ;\  `-.
-            ';:              / `.   `-._
-          `;.;'              `-,/ .     `-.
-          ';;'              _    `^`       `.
-         ';;            ,'-' `--._          ;
-':      `;;        ,;     `.    ':`,,.__,,_ /
- `;`:;`;:`       ,;  '.    ;,      ';';':';;`
-              .,; '    '-._ `':.;    
-            .:; `          '._ `';;,
-          ;:` `    :'`'       ',__.)
-        `;:;:.,...;'`'
-      ';. '`'::'`''  .'`'
-    ,'   `';;:,..::;`'`'
-, .;`      `'::''`
-,`;`.
-
-Rex
 
 """
 
