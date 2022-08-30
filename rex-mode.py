@@ -4,12 +4,20 @@ Reactive Mode Composition Factor Analysis
 A program to calculate the kinetic energy distribution at the reactive mode of transition states
 Written by: Mauricio Maldonado-Dominguez and Santiago Alonso-Gil
 
-The theory behind is described in: 
+The theory behind the program is described in: 
 Phys. Chem. Chem. Phys., 2019, 21, 24912-24918.
 
 Applications of the method to the analysis of nonequilibrium reactivity:
 J. Am. Chem. Soc. 2020, 142, 8, 3947-3958.
+Chem. Sci. 2021, 12, 12682-12694.
 
+Points to implement:
+Program capabilities:
+    - Identify and respect frozen atoms.
+    - Give the user the possibility to analyze real modes too.
+Program reshaping:
+    - Rewrite the fortran subroutine in Python syntax. ímajor update)
+    - Make global variables local. (FIrst step toward a cleaner code).
 """
 
 
