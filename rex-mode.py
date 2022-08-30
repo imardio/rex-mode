@@ -15,9 +15,11 @@ Points to implement:
 Program capabilities:
     - Identify and respect frozen atoms.
     - Give the user the possibility to analyze real modes too.
+    - Allow the user to tweak the displacement coefficient, while providing a known default value for easy application.
 Program reshaping:
     - Rewrite the fortran subroutine in Python syntax. ímajor update)
     - Make global variables local. (FIrst step toward a cleaner code).
+    - Create an error list and call errors accordingly, instead of writing them explicitly in the main program.
 """
 
 
