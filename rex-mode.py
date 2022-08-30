@@ -20,6 +20,30 @@ Program reshaping:
     - Rewrite the fortran subroutine in Python syntax. ímajor update)
     - Make global variables local. (FIrst step toward a cleaner code).
     - Create an error list and call errors accordingly, instead of writing them explicitly in the main program.
+    
+    
+                      ,
+               ,  ;:._.-`''.
+             ;.;'.;`      _ `.
+              ',;`       ( \ ,`-.  
+           `:.`,         (_/ ;\  `-.
+            ';:              / `.   `-._
+          `;.;'              `-,/ .     `-.
+          ';;'              _    `^`       `.
+         ';;            ,'-' `--._          ;
+':      `;;        ,;     `.    ':`,,.__,,_ /
+ `;`:;`;:`       ,;  '.    ;,      ';';':';;`
+              .,; '    '-._ `':.;    
+            .:; `          '._ `';;,
+          ;:` `    :'`'       ',__.)
+        `;:;:.,...;'`'
+      ';. '`'::'`''  .'`'
+    ,'   `';;:,..::;`'`'
+, .;`      `'::''`
+,`;`.
+
+Rex
+
 """
 
 
