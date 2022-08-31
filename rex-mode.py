@@ -35,14 +35,16 @@ Applications of the method to the analysis of nonequilibrium reactivity:
 J. Am. Chem. Soc. 2020, 142, 8, 3947-3958.
 Chem. Sci. 2021, 12, 12682-12694.
 
-Points to implement:
+To-do list:
+
 Program capabilities:
     - Extend the parser to ADF outputs and molden files.
     - Identify and respect frozen atoms.
     - Give the user the possibility to analyze real modes too.
     - Allow the user to tweak the displacement coefficient, while providing a known default value for easy application.
+    
 Program reshaping:
-    - Rewrite the fortran subroutine in Python syntax. ímajor update)
+    - Rewrite the fortran subroutine in Python syntax. (major update)
     - Make global variables local. (FIrst step toward a cleaner code).
     - Create an error list and call errors accordingly, instead of writing them explicitly in the main program.
     
@@ -94,6 +96,13 @@ atomic_mass = {
     47:108.0, 48:112.0, 49:115.0, 50:119.0, 51:122.0, 52:128.0, 53:127.0, 54:131.0,
     55:133.0, 56:137.0,
     }
+
+"""
+errors = {
+    error_1: XXX,
+    error_2: XXX,
+    ...
+""""
 
 #######
 # Program
@@ -202,13 +211,17 @@ def n_atoms_1():
             for line in f.readlines():
                 if "NAtoms" in line:
                     if re.split(r'\s',line)[6].rstrip('\n') is not "":
-#                        If true, we found the number of atoms at position 6
+                        
+# If true, we found the number of atoms at position 6
+
                         total_atoms = re.split(r'\s',line)[6].rstrip('\n')
                         with open('NAtoms', 'w') as atoms:
                             atoms.write(str(total_atoms))
                         break
                     elif re.split(r'\s',line)[8].rstrip('\n') is not "":
-#                        If true, we found the number of atoms at position 8
+                        
+# If true, we found the number of atoms at position 8
+
                         total_atoms = re.split(r'\s',line)[8].rstrip('\n')
                         with open('NAtoms', 'w') as atoms:
                             atoms.write(str(total_atoms))
@@ -281,9 +294,13 @@ def split_modes():
 def delete_lines(original_file, line_numbers):
     is_skipped = False
     counter = 0
+    
     # Create name of dummy / temporary file
+    
     dummy_file = original_file + '.bak'
+    
     # Open original file in read only mode and dummy file in write mode
+    
     with open(original_file, 'r') as read_obj, open(dummy_file, 'w') as write_obj:
         for line in read_obj:
             # If current line number exist in list then skip copying that line
