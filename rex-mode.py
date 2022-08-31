@@ -37,6 +37,7 @@ Chem. Sci. 2021, 12, 12682-12694.
 
 Points to implement:
 Program capabilities:
+    - Extend the parser to ADF outputs and molden files.
     - Identify and respect frozen atoms.
     - Give the user the possibility to analyze real modes too.
     - Allow the user to tweak the displacement coefficient, while providing a known default value for easy application.
@@ -118,11 +119,11 @@ def rmcf(filename1):
 
     check_success()
 
-    if "NAtoms=" in open(args.GaussFile,'rt').read():
+    if "NAtoms=" in open(args.qmFile,'rt').read():
         n_atoms_1()
-    elif "Input orientation:" in open(args.GaussFile,'rt').read():
+    elif "Input orientation:" in open(args.qmFile,'rt').read():
         n_atoms_2()
-    elif "Standard orientation:" in open(args.GaussFile,'rt').read():
+    elif "Standard orientation:" in open(args.qmFile,'rt').read():
         n_atoms_3()
     else:
         logging.info('The program aborted with Error 1. Unrecognized format in Gaussian output file.' + '\n')
@@ -131,11 +132,11 @@ def rmcf(filename1):
 
     logging.info('The number of atoms is: ' + str(total_atoms) + '\n')
 
-    if "Input orientation" in open(args.GaussFile,'rt').read():  
+    if "Input orientation" in open(args.qmFile,'rt').read():  
         last_input()
         logging.info('The last geometry for ' + filename1 + ' is:' + '\n')
         logging.info(last_xyz.to_string(header=True, index=True) + '\n')
-    elif "Standard orientation:" in open(args.GaussFile,'rt').read():
+    elif "Standard orientation:" in open(args.qmFile,'rt').read():
         last_standard()
         logging.info('The last geometry for ' + filename1 + ' is:' + '\n')
         logging.info(last_xyz.to_string(header=True, index=True) + '\n')
@@ -144,11 +145,11 @@ def rmcf(filename1):
         print("Error 2. Unrecognized format in Gaussian output file. Aborting")
         exit()
 
-    if "atoms frozen in the vibrational analysis" in open(args.GaussFile, 'rt').read():
+    if "atoms frozen in the vibrational analysis" in open(args.qmFile, 'rt').read():
         logging.info('Frozen atoms found. This is currently unsupported. Aborting the RMCF analysis.' + '\n')
         print('Frozen atoms found. Aborting the RMCF analysis.')
         exit()
-    elif "Harmonic frequencies" in open(args.GaussFile, 'rt').read():
+    elif "Harmonic frequencies" in open(args.qmFile, 'rt').read():
         logging.info('Harmonic frequencies found. The program will now perform the RMCF analysis.' + '\n')
         normal_modes()
         split_modes()
@@ -184,7 +185,7 @@ def rmcf(filename1):
 ########
 
 def check_success():
-    with open(args.GaussFile) as f:
+    with open(args.qmFile) as f:
         if (' Normal termination of Gaussian') in f.read():
             logging.info('The Gaussian calculation terminated normally.'+'\n')
         else: 
@@ -196,8 +197,8 @@ def check_success():
 
 def n_atoms_1():
     global total_atoms
-    if "NAtoms" in open(args.GaussFile,'rt').read():
-        with open(args.GaussFile,'rt') as f:
+    if "NAtoms" in open(args.qmFile,'rt').read():
+        with open(args.qmFile,'rt') as f:
             for line in f.readlines():
                 if "NAtoms" in line:
                     if re.split(r'\s',line)[6].rstrip('\n') is not "":
@@ -215,7 +216,7 @@ def n_atoms_1():
               
 def n_atoms_2():
     global total_atoms
-    with open(args.GaussFile,'rt') as file: 
+    with open(args.qmFile,'rt') as file: 
         for line in file:
             lines.append(str(line.rstrip('\n'))) 
     index1 = lines.index(str("Standard orientation:"))
@@ -235,7 +236,7 @@ def n_atoms_2():
 
 def n_atoms_3():
     global total_atoms
-    with open(args.GaussFile,'rt') as file: 
+    with open(args.qmFile,'rt') as file: 
         for line in file:
             lines.append(str(line.rstrip('\n'))) 
     index1 = lines.index(str("Input orientation:"))
@@ -258,7 +259,7 @@ def n_atoms_3():
 def normal_modes():
     global lines
     lines = []
-    with open(args.GaussFile,'rt') as file: 
+    with open(args.qmFile,'rt') as file: 
         for line in file:
             lines.append(str(line.rstrip('\n'))) 
     index1 = lines.index(str(" and normal coordinates:"))
@@ -336,12 +337,12 @@ def unique_geometry():
 
 def last_input():
     lines = []
-    with open(args.GaussFile,'rt') as file: 
+    with open(args.qmFile,'rt') as file: 
         for line in file:
             lines.append(str(line.rstrip('\n'))) 
     input = "Input orientation:"
     locations = [] # Here we will compile where the geometry definitions begin throughout the output file
-    with open(args.GaussFile,'r') as f:
+    with open(args.qmFile,'r') as f:
         for num, line in enumerate(f, 1):
             if input in line:
                 a = (int(num) + 5)
@@ -352,7 +353,7 @@ def last_input():
 
     delimiters = [] # Here we will compile where the geometry definitions end throughout the output file
     for location in locations:
-        with open(args.GaussFile,'r') as f:
+        with open(args.qmFile,'r') as f:
                 skipped = itertools.islice(f, int(location), None)
                 for num, line in enumerate(skipped, int(location) + 1):
                     if limit == line:
@@ -389,12 +390,12 @@ def last_input():
 
 def last_standard():
     lines = []
-    with open(args.GaussFile,'rt') as file: 
+    with open(args.qmFile,'rt') as file: 
         for line in file:
             lines.append(str(line.rstrip('\n'))) 
     input = "Standard orientation:"
     locations = [] # Here we will compile where the geometry definitions begin throughout the output file
-    with open(args.GaussFile,'r') as f:
+    with open(args.qmFile,'r') as f:
         for num, line in enumerate(f, 1):
             if input in line:
                 a = (int(num) + 5)
@@ -405,7 +406,7 @@ def last_standard():
 
     delimiters = [] # Here we will compile where the geometry definitions end throughout the output file
     for location in locations:
-        with open(args.GaussFile,'r') as f:
+        with open(args.qmFile,'r') as f:
                 skipped = itertools.islice(f, int(location), None)
                 for num, line in enumerate(skipped, int(location) + 1):
                     if limit == line:
@@ -771,13 +772,13 @@ def remove_aux():
 #######################
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='This program calculates Kinetic Energy Distributions from a Gaussian TS calculation')
-    parser.add_argument('GaussFile', help='Gaussian output file (*.out or *.log)')
+    parser = argparse.ArgumentParser(description='This program calculates Kinetic Energy Distributions from a TS calculation')
+    parser.add_argument('qmFile', help='Gaussian output (*.out or *.log), ADF output (*.out or *.log), or molden file (*.molden)')
 
     args = parser.parse_args()
 
-    if not os.path.isfile(args.GaussFile):
-        print(args.GaussFile + " is not a valid Gaussian output file.")
+    if not os.path.isfile(args.qmFile):
+        print(args.qmFile + " is not a valid file.")
         quit()
 
-    rmcf(args.GaussFile)
+    rmcf(args.qmFile)
