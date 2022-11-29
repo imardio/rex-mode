@@ -42,6 +42,7 @@ Program capabilities:
     - Identify and respect frozen atoms.
     - Give the user the possibility to analyze real modes too.
     - Allow the user to tweak the displacement coefficient, while providing a known default value for easy application.
+    - Allow/recognize isotopes, for KIE calculations.
     
 Program reshaping:
     - Rewrite the fortran subroutine in Python syntax. (major update)
